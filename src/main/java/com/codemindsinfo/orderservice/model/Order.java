@@ -16,6 +16,7 @@ public class Order {
 
     @Id
     private String id;
+    private String orderDate;
     private String orderNumber;
     private List<OrderLineItemsDto> orderLineItemsList;
 
