@@ -1,6 +1,6 @@
 package com.codemindsinfo.orderservice.service;
 
-import com.codemindsinfo.inventoryservice.model.InventoryResponse;
+import com.codemindsinfo.orderservice.model.InventoryResponse;
 import com.codemindsinfo.orderservice.config.WebConfig;
 import com.codemindsinfo.orderservice.dto.OrderLineItemsDto;
 import com.codemindsinfo.orderservice.dto.OrderRequest;
@@ -8,11 +8,7 @@ import com.codemindsinfo.orderservice.exception.OutOfStockException;
 import com.codemindsinfo.orderservice.model.Order;
 import com.codemindsinfo.orderservice.repository.OrderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.*;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.RestTemplate;
-import org.springframework.web.reactive.function.client.WebClient;
-import org.springframework.web.util.UriBuilder;
 
 import java.util.*;
 
@@ -40,8 +36,8 @@ public class OrderService {
             //So, we will do a Synchronous Call to inventory service to fetch the data.
 
             InventoryResponse[] inventoryResponsesArray = webconfig
-                    .webClient().get()
-                    .uri("http://localhost:8082/api/inventory", uriBuilder -> uriBuilder.queryParam("skuCodes", skuCodes).build())
+                    .webClient().build().get()
+                    .uri("http://inventory-service/api/inventory", uriBuilder -> uriBuilder.queryParam("skuCodes", skuCodes).build())
                     .retrieve()
                     .bodyToMono(InventoryResponse[].class)
                     .block();
