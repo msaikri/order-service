@@ -9,7 +9,7 @@ spring:
       uri: mongodb://localhost:27017/ORDER-INFO
       collection: ORDER
 server:
-  port: 8081
+  port: 0
 
 eureka:
   client:
